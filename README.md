@@ -1,7 +1,7 @@
 # University Research Opportunity Portal
 
 ## GitHub Repository
-`https://github.com/username/research-opportunity-portal` *(Replace with actual repository URL upon push)*
+https://github.com/AhmadBilalKhann/research-opportunity-portal
 
 ---
 
@@ -40,7 +40,9 @@ CN_Assignment/
 │   │   └── app.js            # Client-side JavaScript logic
 │   └── index.html            # Portal user interface
 ├── database/
-│   └── schema.sql            # Database schema definitions and setup
+│   ├── README.md             # Database setup guide and documentation
+│   ├── schema.sql            # Database schema definitions and setup
+│   └── seed.sql              # Optional initial sample research opportunities
 ├── postman/
 │   └── README.md             # Postman / Newman collection exports
 ├── .env.example              # Root environment variables template
@@ -50,14 +52,23 @@ CN_Assignment/
 
 ---
 
-## Getting Started (Initial Setup)
+## Getting Started (Setup & Execution)
 
 ### 1. Prerequisites
 - Node.js (v18+ recommended)
 - npm (v9+ recommended)
-- MySQL Server
+- MySQL Server (v8.0+ recommended)
 
-### 2. Backend Installation & Run
+### 2. Database Setup
+```bash
+# 1. Run schema script to create research_opportunity_db database and table
+mysql -u root -p < database/schema.sql
+
+# 2. (Optional) Populate initial sample research opportunities
+mysql -u root -p < database/seed.sql
+```
+
+### 3. Backend Installation & Run
 ```bash
 # Navigate to backend directory
 cd backend
@@ -70,5 +81,5 @@ npm start
 ```
 By default, the server will be available at `http://localhost:5000`.
 
-### 3. Frontend
+### 4. Frontend
 Open `frontend/index.html` directly in your web browser.
