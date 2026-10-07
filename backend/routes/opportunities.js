@@ -123,4 +123,27 @@ router.post('/', async (req, res) => {
   }
 });
 
+// =========================================================================
+// 2. GET /api/opportunities
+// Retrieve all research opportunities
+// =========================================================================
+router.get('/', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM research_opportunities ORDER BY id ASC');
+
+    return res.status(200).json({
+      success: true,
+      count: rows.length,
+      data: rows
+    });
+  } catch (error) {
+    console.error('Error retrieving research opportunities:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error while retrieving research opportunities',
+      error: error.message
+    });
+  }
+});
+
 module.exports = router;
