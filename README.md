@@ -30,9 +30,11 @@ Currently, research openings are often distributed irregularly across emails, me
 ```text
 CN_Assignment/
 ├── backend/
+│   ├── config/
+│   │   └── db.js             # MySQL database connection pool (mysql2)
 │   ├── .env.example          # Environment variables template
 │   ├── package.json          # Node.js dependencies and scripts
-│   └── server.js             # Express application entry point
+│   └── server.js             # Express application entry point & static server
 ├── frontend/
 │   ├── css/
 │   │   └── style.css         # Frontend styling
@@ -45,7 +47,6 @@ CN_Assignment/
 │   └── seed.sql              # Optional initial sample research opportunities
 ├── postman/
 │   └── README.md             # Postman / Newman collection exports
-├── .env.example              # Root environment variables template
 ├── .gitignore                # Git ignore rules for node_modules, secrets, logs
 └── README.md                 # Project documentation and instructions
 ```
@@ -68,18 +69,20 @@ mysql -u root -p < database/schema.sql
 mysql -u root -p < database/seed.sql
 ```
 
-### 3. Backend Installation & Run
+### 3. Backend Configuration & Execution
 ```bash
 # Navigate to backend directory
 cd backend
 
+# Create .env from template and configure your MySQL credentials
+cp .env.example .env
+
 # Install dependencies (already installed during initialization)
 npm install
 
-# Start the server
+# Start the unified server
 npm start
 ```
-By default, the server will be available at `http://localhost:5000`.
-
-### 4. Frontend
-Open `frontend/index.html` directly in your web browser.
+By default, the unified server runs on `http://localhost:3000`.
+- **Frontend interface:** Accessible directly at `http://localhost:3000`
+- **Health check endpoint:** `http://localhost:3000/api/health`
