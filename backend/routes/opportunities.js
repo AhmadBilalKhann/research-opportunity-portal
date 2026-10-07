@@ -146,4 +146,49 @@ router.get('/', async (req, res) => {
   }
 });
 
+// =========================================================================
+// 3. GET /api/opportunities/:id
+// Retrieve one research opportunity by its ID
+// =========================================================================
+router.get('/:id', async (req, res) => {
+  try {
+    const rawId = req.params.id;
+    const id = Number(rawId);
+
+    // Validate ID: must be a positive integer
+    if (!/^\d+$/.test(rawId) || !Number.isInteger(id) || id <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid opportunity ID. ID must be a positive integer.'
+      });
+    }
+
+    // Query opportunity by ID using parameterized prepared statement
+    const [rows] = await pool.execute(
+      'SELECT * FROM research_opportunities WHERE id = ?',
+      [id]
+    );
+
+    // Check if opportunity exists
+    if (rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: `Research opportunity with ID ${id} not found.`
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: rows[0]
+    });
+  } catch (error) {
+    console.error('Error retrieving research opportunity by ID:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error while retrieving research opportunity',
+      error: error.message
+    });
+  }
+});
+
 module.exports = router;
