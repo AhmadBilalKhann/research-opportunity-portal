@@ -1,0 +1,8 @@
+-- ===================================================
+-- University Research Opportunity Portal
+-- Database Schema Setup Script
+-- ===================================================
+-- Database: research_opportunity_db
+-- 
+-- Note: Table definitions and setup statements will be 
+-- implemented in the upcoming database development stage.
