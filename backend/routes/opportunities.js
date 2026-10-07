@@ -398,4 +398,49 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// =========================================================================
+// 5. DELETE /api/opportunities/:id
+// Delete a research opportunity by its ID
+// =========================================================================
+router.delete('/:id', async (req, res) => {
+  try {
+    const rawId = req.params.id;
+    const id = Number(rawId);
+
+    // Validate ID: must be a positive integer
+    if (!/^\d+$/.test(rawId) || !Number.isInteger(id) || id <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid opportunity ID. ID must be a positive integer.'
+      });
+    }
+
+    // Execute delete using parameterized prepared query
+    const [result] = await pool.execute(
+      'DELETE FROM research_opportunities WHERE id = ?',
+      [id]
+    );
+
+    // If no row was affected, the opportunity did not exist
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        success: false,
+        message: `Research opportunity with ID ${id} not found.`
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: `Research opportunity with ID ${id} deleted successfully.`
+    });
+  } catch (error) {
+    console.error('Error deleting research opportunity:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error while deleting research opportunity',
+      error: error.message
+    });
+  }
+});
+
 module.exports = router;
