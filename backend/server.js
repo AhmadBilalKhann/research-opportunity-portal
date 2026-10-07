@@ -25,6 +25,10 @@ app.use(express.urlencoded({ extended: true }));
 const frontendPath = path.join(__dirname, '..', 'frontend');
 app.use(express.static(frontendPath));
 
+// API Routes
+const opportunitiesRouter = require('./routes/opportunities');
+app.use('/api/opportunities', opportunitiesRouter);
+
 // Health check endpoint
 app.get('/api/health', async (req, res) => {
   try {
