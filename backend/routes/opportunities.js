@@ -2,13 +2,23 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../config/db');
 
-// Helper to validate date string in YYYY-MM-DD format
+// Helper to validate date string in YYYY-MM-DD format with calendar accuracy
 function isValidDateString(dateStr) {
   if (typeof dateStr !== 'string') return false;
   const regex = /^\d{4}-\d{2}-\d{2}$/;
   if (!regex.test(dateStr)) return false;
-  const date = new Date(dateStr);
-  return !isNaN(date.getTime()) && date.toISOString().slice(0, 10) === dateStr;
+  const [year, month, day] = dateStr.split('-').map(Number);
+  const date = new Date(year, month - 1, day);
+  return (
+    date.getFullYear() === year &&
+    date.getMonth() === month - 1 &&
+    date.getDate() === day
+  );
+}
+
+// Helper to validate positive integer IDs
+function isValidId(id) {
+  return /^\d+$/.test(String(id)) && Number.isInteger(Number(id)) && Number(id) > 0;
 }
 
 // =========================================================================
@@ -156,7 +166,7 @@ router.get('/:id', async (req, res) => {
     const id = Number(rawId);
 
     // Validate ID: must be a positive integer
-    if (!/^\d+$/.test(rawId) || !Number.isInteger(id) || id <= 0) {
+    if (!isValidId(rawId)) {
       return res.status(400).json({
         success: false,
         message: 'Invalid opportunity ID. ID must be a positive integer.'
@@ -201,7 +211,7 @@ router.put('/:id', async (req, res) => {
     const id = Number(rawId);
 
     // Validate ID: must be a positive integer
-    if (!/^\d+$/.test(rawId) || !Number.isInteger(id) || id <= 0) {
+    if (!isValidId(rawId)) {
       return res.status(400).json({
         success: false,
         message: 'Invalid opportunity ID. ID must be a positive integer.'
@@ -408,7 +418,7 @@ router.delete('/:id', async (req, res) => {
     const id = Number(rawId);
 
     // Validate ID: must be a positive integer
-    if (!/^\d+$/.test(rawId) || !Number.isInteger(id) || id <= 0) {
+    if (!isValidId(rawId)) {
       return res.status(400).json({
         success: false,
         message: 'Invalid opportunity ID. ID must be a positive integer.'

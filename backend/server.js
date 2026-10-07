@@ -21,6 +21,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Handle malformed JSON body errors
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    return res.status(400).json({
+      success: false,
+      message: 'Malformed JSON payload. Please ensure the request body is valid JSON.'
+    });
+  }
+  next(err);
+});
+
 // Serve frontend static files
 const frontendPath = path.join(__dirname, '..', 'frontend');
 app.use(express.static(frontendPath));
@@ -49,6 +60,24 @@ app.get('/api/health', async (req, res) => {
       timestamp: new Date().toISOString(),
     });
   }
+});
+
+// Catch-all 404 handler for unhandled API routes
+app.use('/api', (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `API endpoint ${req.method} ${req.originalUrl} not found.`
+  });
+});
+
+// Centralized error handling middleware
+app.use((err, req, res, next) => {
+  console.error('[Unhandled Server Error]:', err);
+  res.status(500).json({
+    success: false,
+    message: 'Internal server error',
+    error: process.env.NODE_ENV === 'production' ? undefined : err.message
+  });
 });
 
 // Start Express Server
