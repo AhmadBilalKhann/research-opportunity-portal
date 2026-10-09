@@ -45,34 +45,217 @@ main {
   flex: 1;
 }
 
-.placeholder-card {
+/* Portal Sections */
+.portal-section {
   background: #ffffff;
   border-radius: 8px;
-  padding: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  margin-top: 2rem;
+  padding: 1.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin-top: 1.5rem;
 }
 
-.placeholder-card h2 {
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e9ecef;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.section-header h2 {
   color: #0d3b66;
-  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
 }
 
-.placeholder-card p {
-  color: #555;
-  margin-bottom: 1.5rem;
+.section-description {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-top: 0.2rem;
 }
 
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: #0d3b66;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #092742;
+}
+
+.btn-secondary {
+  background-color: #f1f3f5;
+  color: #495057;
+  border-color: #ced4da;
+}
+
+.btn-secondary:hover {
+  background-color: #e9ecef;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+
+.btn-danger:hover {
+  background-color: #bd2130;
+}
+
+.btn-warning {
+  background-color: #f59f00;
+  color: #ffffff;
+}
+
+.btn-warning:hover {
+  background-color: #d9822b;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+/* Badges */
 .status-badge {
   display: inline-block;
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  font-weight: 600;
-  padding: 0.5rem 1rem;
+  padding: 0.25rem 0.65rem;
   border-radius: 20px;
-  border: 1px solid #c8e6c9;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.status-open {
+  background-color: #e6fcf5;
+  color: #0ca678;
+  border: 1px solid #c3fae8;
+}
+
+.status-badge.status-closed {
+  background-color: #fff5f5;
+  color: #fa5252;
+  border: 1px solid #ffe3e3;
+}
+
+/* Opportunities List Grid */
+.opportunities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Opportunity Card (Design template for rendered items) */
+.opportunity-card {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.opportunity-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.opportunity-card .card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.opportunity-card .card-id {
+  font-size: 0.8rem;
+  color: #868e96;
+  font-weight: 600;
+}
+
+.opportunity-card .card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0d3b66;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.opportunity-card .card-faculty {
+  font-size: 0.85rem;
+  color: #495057;
+  margin-bottom: 0.35rem;
+}
+
+.opportunity-card .card-department {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 0.75rem;
+}
+
+.opportunity-card .card-meta {
+  font-size: 0.8rem;
+  color: #495057;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #e9ecef;
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.opportunity-card .card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Empty State */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background-color: #fafbfc;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.empty-state h3 {
+  color: #0d3b66;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  color: #6c757d;
+  font-size: 0.95rem;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 /* Footer */

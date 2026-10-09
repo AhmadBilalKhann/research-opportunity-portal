@@ -15,10 +15,29 @@
   </header>
 
   <main class="container">
-    <section class="placeholder-card">
-      <h2>Welcome to the Portal</h2>
-      <p>The system is currently initialized. Research opportunity listings and faculty management tools will be available here.</p>
-      <div class="status-badge">System Status: Initialized</div>
+    <!-- Research Opportunities List Section -->
+    <section class="portal-section" id="list-section">
+      <div class="section-header">
+        <div>
+          <h2>Available Research Opportunities</h2>
+          <p class="section-description">Browse and manage research openings posted by university faculty</p>
+        </div>
+        <div class="header-actions">
+          <button type="button" class="btn btn-secondary" id="refresh-btn">
+            &#x21bb; Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- Opportunities Container (Dynamic items will be rendered here) -->
+      <div id="opportunities-list" class="opportunities-grid">
+        <!-- Empty State Placeholder (No records hardcoded) -->
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon">&#128218;</div>
+          <h3>No Research Opportunities Loaded</h3>
+          <p>Opportunities stored in the MySQL database will be displayed here once connected to the backend API.</p>
+        </div>
+      </div>
     </section>
   </main>
 
