@@ -301,14 +301,74 @@ document.addEventListener('DOMContentLoaded', () => {
   // 10. PLACEHOLDER STUBS (filled in subsequent commits)
   // ================================================================
 
+  /**
+   * loadOpportunityById — GET /api/opportunities/:id
+   * Fetches one record from the database and opens the details modal.
+   */
   async function loadOpportunityById(id) {
-    // Will be implemented in the next commit
-    console.log('TODO: load opportunity by ID', id);
+    try {
+      const response = await fetch(`${API_BASE}/${id}`);
+      if (response.status === 404) {
+        showAlert('Opportunity not found. It may have been deleted.', 'error');
+        return;
+      }
+      if (!response.ok) {
+        const msg = await extractErrorMessage(response, 'Failed to load opportunity details.');
+        showAlert(msg, 'error');
+        return;
+      }
+      const body = await response.json();
+      populateDetailsModal(body.data);
+      openModal();
+    } catch (error) {
+      console.error('Network error loading opportunity:', error);
+      showAlert('Could not connect to the server. Is the backend running?', 'error');
+    }
   }
 
+  /**
+   * createOpportunity — POST /api/opportunities
+   * Sends all form fields as JSON. On success, resets form and refreshes list.
+   */
   async function createOpportunity() {
-    // Will be implemented in the next commit
-    console.log('TODO: create opportunity');
+    const payload = {
+      title:                titleInput.value.trim(),
+      research_area:        researchAreaInput.value.trim(),
+      faculty_name:         facultyNameInput.value.trim(),
+      department:           departmentInput.value.trim(),
+      available_positions:  Number(positionsInput.value),
+      application_deadline: deadlineInput.value,
+      status:               statusSelect.value,
+      required_skills:      skillsInput.value.trim(),
+      description:          descriptionInput.value.trim()
+    };
+    try {
+      setSubmitLoading(true);
+      const response = await fetch(API_BASE, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload)
+      });
+      if (response.status === 400) {
+        const msg = await extractErrorMessage(response, 'Invalid data submitted.');
+        showAlert(`Validation error: ${msg}`, 'error');
+        return;
+      }
+      if (!response.ok) {
+        const msg = await extractErrorMessage(response, 'Failed to create opportunity.');
+        showAlert(msg, 'error');
+        return;
+      }
+      const body = await response.json();
+      switchToCreateMode();
+      showAlert(`Research opportunity "${body.data.title}" created successfully!`, 'success');
+      await loadOpportunities();
+    } catch (error) {
+      console.error('Network error creating opportunity:', error);
+      showAlert('Could not connect to the server. Is the backend running?', 'error');
+    } finally {
+      setSubmitLoading(false);
+    }
   }
 
   async function updateOpportunity(id) {
