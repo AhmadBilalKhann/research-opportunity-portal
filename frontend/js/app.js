@@ -1,12 +1,23 @@
 /**
  * University Research Opportunity Portal
  * =======================================
- * Frontend JavaScript — Stage 7 (API Integration)
+ * Frontend JavaScript — Stage 7 (API Integration — Complete)
  *
- * Commit 1: Connect frontend to opportunity list API
- *   - GET /api/opportunities on page load
- *   - Render cards dynamically from database records
- *   - Refresh button reloads list from API
+ * Every UI action is connected to the backend REST API.
+ * All data comes from MySQL through Express — nothing is hard-coded.
+ *
+ * ERROR HANDLING COVERAGE:
+ *   400 Bad Request  — validation errors from server shown in alert banner
+ *   404 Not Found    — friendly "may have been deleted" message
+ *   500 Server Error — generic error message shown to user
+ *   Network failure  — "Could not connect to server" message shown
+ *
+ * API endpoints used:
+ *   GET    /api/opportunities       — load all opportunities on page load / refresh
+ *   GET    /api/opportunities/:id   — load one opportunity for detail view or edit
+ *   POST   /api/opportunities       — create a new opportunity from the form
+ *   PUT    /api/opportunities/:id   — update fields OR toggle status (partial update)
+ *   DELETE /api/opportunities/:id   — permanently delete an opportunity
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -298,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ================================================================
-  // 10. PLACEHOLDER STUBS (filled in subsequent commits)
+  // 10. API FUNCTIONS — VIEW, CREATE, UPDATE, DELETE, TOGGLE STATUS
   // ================================================================
 
   /**
@@ -543,6 +554,9 @@ document.addEventListener('DOMContentLoaded', () => {
   switchToCreateMode();
   loadOpportunities();   // Fetch all opportunities from the database on page load
 
-  console.log('%cPortal — Commit 1: List API connected', 'color:#0d3b66;font-weight:bold;');
+  console.log(
+    '%cUniversity Research Opportunity Portal — Stage 7 Complete (API Connected)',
+    'color:#0d3b66;font-weight:bold;font-size:12px;'
+  );
 
 });
