@@ -1,67 +1,55 @@
 -- ===================================================
--- University Research Opportunity Portal
--- Optional Seed Data Script
--- ===================================================
--- Populate initial realistic research opportunities
--- for development and testing purposes.
--- (This file is completely optional; you can start with
--- an empty database if preferred).
+-- Optional Seed Data: University Research Opportunity Portal
+-- Insert sample opportunities into the database
 -- ===================================================
 
 USE research_opportunity_db;
 
-INSERT INTO research_opportunities (
-  title,
-  description,
-  research_area,
-  faculty_name,
-  department,
-  required_skills,
-  available_positions,
-  application_deadline,
-  status
-) VALUES
-(
-  'Deep Learning for Medical Image Segmentation',
-  'Investigating convolutional neural networks and vision transformers for automated segmentation of MRI scans to aid early clinical diagnosis.',
-  'Artificial Intelligence',
-  'Dr. Sarah Khan',
-  'Computer Science',
-  'Python, PyTorch, OpenCV, Machine Learning Basics',
-  2,
-  '2026-11-15',
-  'Open'
-),
-(
-  'Low-Latency Edge Routing Protocols for IoT Smart Cities',
-  'Designing and evaluating lightweight SDN-based routing protocols to minimize end-to-end latency in dense urban IoT sensor networks.',
-  'Computer Networks',
-  'Dr. Usman Tariq',
-  'Computer Science',
-  'C++, Mininet, Wireshark, Computer Networks',
-  3,
-  '2026-11-30',
-  'Open'
-),
-(
-  'Automated Vulnerability Detection in Smart Contracts',
-  'Developing static analysis and symbolic execution tools to detect reentrancy and integer overflow vulnerabilities in Ethereum smart contracts.',
-  'Cybersecurity',
-  'Dr. Ayesha Malik',
-  'Software Engineering',
-  'Solidity, Python, Software Testing, Static Analysis',
-  1,
-  '2026-10-25',
-  'Open'
-),
-(
-  'Multilingual Sentiment Analysis for Regional Languages',
-  'Benchmarking large language models and fine-tuning BERT-based architectures for sentiment classification in under-resourced regional dialects.',
-  'Natural Language Processing',
-  'Dr. Bilal Ahmed',
-  'Data Science',
-  'Python, HuggingFace Transformers, Pandas, NLP',
-  2,
-  '2026-09-30',
-  'Closed'
-);
+-- Insert 4 realistic research opportunities
+INSERT INTO research_opportunities 
+  (title, description, research_area, faculty_name, department, required_skills, available_positions, application_deadline, status)
+VALUES
+  (
+    'Deep Learning for Medical Image Segmentation',
+    'Investigating convolutional neural networks and vision transformers for automated segmentation of MRI scans to aid early clinical diagnosis.',
+    'Artificial Intelligence',
+    'Dr. Omer Usman',
+    'Computer Science',
+    'Python, PyTorch, OpenCV, Machine Learning Basics',
+    2,
+    '2026-11-15',
+    'Open'
+  ),
+  (
+    'Graph Theory Applications in Network Optimization',
+    'Applying advanced graph theory algorithms to optimize routing and minimize latency in large-scale computer networks.',
+    'Discrete Structures',
+    'Dr. Noman Azam',
+    'Computer Science',
+    'Discrete Mathematics, Graph Theory, Python',
+    3,
+    '2026-11-30',
+    'Open'
+  ),
+  (
+    'Scalable Analytics Pipelines for Large Datasets',
+    'Designing and evaluating distributed data processing pipelines for high-throughput, real-time analytics.',
+    'Big Data',
+    'Ms. Sana Jehan',
+    'Computer Science',
+    'Python, SQL, Hadoop, Spark',
+    1,
+    '2026-12-10',
+    'Open'
+  ),
+  (
+    'FPGA-Based Digital Circuit Design and Simulation',
+    'Developing hardware accelerators for cryptographic algorithms using Field Programmable Gate Arrays (FPGAs).',
+    'Digital Logic Design',
+    'Dr. Usman Abbassi',
+    'Computer Science',
+    'Digital Logic Design, Verilog, Boolean Algebra',
+    2,
+    '2026-09-30',
+    'Closed'
+  );

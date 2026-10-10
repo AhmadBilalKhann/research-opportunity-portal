@@ -7,7 +7,7 @@ This directory contains the database setup and initialization scripts for the **
 ## 1. Files Overview
 
 - **`schema.sql`** *(Required)*: Creates the database `research_opportunity_db` and the `research_opportunities` table with all necessary fields, data types, and integrity constraints.
-- **`seed.sql`** *(Optional)*: Populates the database with 4 realistic research opportunities (covering AI, Computer Networks, Cybersecurity, and NLP).
+- **`seed.sql`** *(Optional)*: Populates the database with 4 realistic research opportunities (covering AI, Discrete Structures, Big Data, and Digital Logic Design).
 
 ---
 
