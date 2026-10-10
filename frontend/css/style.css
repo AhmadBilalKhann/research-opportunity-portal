@@ -510,6 +510,98 @@ select.form-control {
   gap: 0.5rem;
 }
 
+/* ============================================================
+   VALIDATION & MESSAGE STYLES
+   ============================================================ */
+
+/* Per-field inline error message */
+.field-error {
+  font-size: 0.8rem;
+  color: #dc3545;
+  margin-top: 0.3rem;
+  min-height: 1.1rem; /* reserves space so layout does not jump */
+}
+
+/* Global success notification banner */
+.alert {
+  padding: 0.9rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.alert-success {
+  background-color: #d3f9d8;
+  color: #1b5e2b;
+  border: 1px solid #b2f2bb;
+}
+
+.alert-error {
+  background-color: #ffe3e3;
+  color: #7b1c1c;
+  border: 1px solid #ffc9c9;
+}
+
+.alert-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+
+/* Confirmation dialog overlay (for delete) */
+.confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  padding: 1rem;
+}
+
+.confirm-box {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.confirm-box h4 {
+  color: #212529;
+  font-size: 1.15rem;
+  margin-bottom: 0.6rem;
+}
+
+.confirm-box p {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.confirm-buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+/* Loading spinner for async actions */
+.btn.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /* Footer */
 .footer {
   background-color: #ffffff;
