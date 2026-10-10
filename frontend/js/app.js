@@ -455,9 +455,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  /**
+   * deleteOpportunity — DELETE /api/opportunities/:id
+   * Permanently removes the record from MySQL.
+   * On success: shows message, closes modal, refreshes list.
+   */
   async function deleteOpportunity(id) {
-    // Will be implemented in commit 4
-    console.log('TODO: delete opportunity', id);
+    try {
+      const response = await fetch(`${API_BASE}/${id}`, { method: 'DELETE' });
+      if (response.status === 404) {
+        showAlert('Opportunity not found. It may have already been deleted.', 'error');
+        closeModal();
+        await loadOpportunities();
+        return;
+      }
+      if (!response.ok) {
+        const msg = await extractErrorMessage(response, 'Failed to delete opportunity.');
+        showAlert(msg, 'error');
+        return;
+      }
+      closeModal();
+      showAlert(`Opportunity #${id} has been permanently deleted.`, 'success');
+      await loadOpportunities();
+    } catch (error) {
+      console.error('Network error deleting opportunity:', error);
+      showAlert('Could not connect to the server. Is the backend running?', 'error');
+    }
   }
 
   // ================================================================
