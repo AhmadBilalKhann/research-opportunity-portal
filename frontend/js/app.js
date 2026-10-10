@@ -371,14 +371,88 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  /**
+   * updateOpportunity — PUT /api/opportunities/:id
+   * Sends all form fields. Backend supports partial update so this is safe.
+   * On success: resets to create mode and refreshes the list.
+   */
   async function updateOpportunity(id) {
-    // Will be implemented in commit 3
-    console.log('TODO: update opportunity', id);
+    const payload = {
+      title:                titleInput.value.trim(),
+      research_area:        researchAreaInput.value.trim(),
+      faculty_name:         facultyNameInput.value.trim(),
+      department:           departmentInput.value.trim(),
+      available_positions:  Number(positionsInput.value),
+      application_deadline: deadlineInput.value,
+      status:               statusSelect.value,
+      required_skills:      skillsInput.value.trim(),
+      description:          descriptionInput.value.trim()
+    };
+    try {
+      setSubmitLoading(true);
+      const response = await fetch(`${API_BASE}/${id}`, {
+        method:  'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload)
+      });
+      if (response.status === 400) {
+        const msg = await extractErrorMessage(response, 'Invalid data submitted.');
+        showAlert(`Validation error: ${msg}`, 'error');
+        return;
+      }
+      if (response.status === 404) {
+        showAlert('Opportunity not found. It may have been deleted.', 'error');
+        switchToCreateMode();
+        return;
+      }
+      if (!response.ok) {
+        const msg = await extractErrorMessage(response, 'Failed to update opportunity.');
+        showAlert(msg, 'error');
+        return;
+      }
+      const body = await response.json();
+      switchToCreateMode();
+      showAlert(`Opportunity "${body.data.title}" updated successfully!`, 'success');
+      await loadOpportunities();
+    } catch (error) {
+      console.error('Network error updating opportunity:', error);
+      showAlert('Could not connect to the server. Is the backend running?', 'error');
+    } finally {
+      setSubmitLoading(false);
+    }
   }
 
+  /**
+   * toggleStatus — PUT /api/opportunities/:id  { status: "Closed" | "Open" }
+   * Sends ONLY the status field — the backend accepts partial updates.
+   * This is what the "Mark as Closed" / "Mark as Open" button calls.
+   */
   async function toggleStatus(id, currentStatus) {
-    // Will be implemented in commit 3
-    console.log('TODO: toggle status', id, currentStatus);
+    const newStatus = currentStatus === 'Open' ? 'Closed' : 'Open';
+    try {
+      const response = await fetch(`${API_BASE}/${id}`, {
+        method:  'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ status: newStatus })
+      });
+      if (response.status === 404) {
+        showAlert('Opportunity not found. It may have been deleted.', 'error');
+        closeModal();
+        await loadOpportunities();
+        return;
+      }
+      if (!response.ok) {
+        const msg = await extractErrorMessage(response, 'Failed to update status.');
+        showAlert(msg, 'error');
+        return;
+      }
+      closeModal();
+      showAlert(`Status changed to "${newStatus}".`, 'success');
+      await loadOpportunities();
+    } catch (error) {
+      console.error('Network error toggling status:', error);
+      showAlert('Could not connect to the server. Is the backend running?', 'error');
+    }
   }
 
   async function deleteOpportunity(id) {
