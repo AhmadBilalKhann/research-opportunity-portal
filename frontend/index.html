@@ -15,6 +15,104 @@
   </header>
 
   <main class="container">
+    <!-- Research Opportunity Form Section (Create & Update) -->
+    <section class="portal-section" id="form-section">
+      <div class="section-header">
+        <div>
+          <h2 id="form-title">Post New Research Opportunity</h2>
+          <p class="section-description" id="form-description">Fill out the form below to create a research opening</p>
+        </div>
+        <div class="header-actions">
+          <button type="button" class="btn btn-secondary btn-sm hidden" id="cancel-edit-btn">
+            Cancel Edit
+          </button>
+        </div>
+      </div>
+
+      <form id="opportunity-form" novalidate>
+        <!-- Hidden input for Opportunity ID (used during Update) -->
+        <input type="hidden" id="opportunity-id" value="">
+
+        <div class="form-grid">
+          <!-- Title -->
+          <div class="form-group form-col-full">
+            <label for="title" class="form-label">Research Title <span class="required-star">*</span></label>
+            <input type="text" id="title" name="title" class="form-control" placeholder="e.g. Deep Learning for Medical Image Segmentation" required>
+            <div class="field-error" id="error-title"></div>
+          </div>
+
+          <!-- Research Area -->
+          <div class="form-group">
+            <label for="research_area" class="form-label">Research Area <span class="required-star">*</span></label>
+            <input type="text" id="research_area" name="research_area" class="form-control" placeholder="e.g. Artificial Intelligence" required>
+            <div class="field-error" id="error-research_area"></div>
+          </div>
+
+          <!-- Faculty Member Name -->
+          <div class="form-group">
+            <label for="faculty_name" class="form-label">Faculty Member Name <span class="required-star">*</span></label>
+            <input type="text" id="faculty_name" name="faculty_name" class="form-control" placeholder="e.g. Dr. Sarah Khan" required>
+            <div class="field-error" id="error-faculty_name"></div>
+          </div>
+
+          <!-- Department -->
+          <div class="form-group">
+            <label for="department" class="form-label">Department <span class="required-star">*</span></label>
+            <input type="text" id="department" name="department" class="form-control" placeholder="e.g. Computer Science" required>
+            <div class="field-error" id="error-department"></div>
+          </div>
+
+          <!-- Number of Available Positions -->
+          <div class="form-group">
+            <label for="available_positions" class="form-label">Available Positions <span class="required-star">*</span></label>
+            <input type="number" id="available_positions" name="available_positions" class="form-control" min="1" placeholder="e.g. 2" required>
+            <div class="field-error" id="error-available_positions"></div>
+          </div>
+
+          <!-- Application Deadline -->
+          <div class="form-group">
+            <label for="application_deadline" class="form-label">Application Deadline <span class="required-star">*</span></label>
+            <input type="date" id="application_deadline" name="application_deadline" class="form-control" required>
+            <div class="field-error" id="error-application_deadline"></div>
+          </div>
+
+          <!-- Status: Open / Closed -->
+          <div class="form-group">
+            <label for="status" class="form-label">Status <span class="required-star">*</span></label>
+            <select id="status" name="status" class="form-control" required>
+              <option value="Open" selected>Open</option>
+              <option value="Closed">Closed</option>
+            </select>
+            <div class="field-error" id="error-status"></div>
+          </div>
+
+          <!-- Required Skills -->
+          <div class="form-group form-col-full">
+            <label for="required_skills" class="form-label">Required Skills <span class="required-star">*</span></label>
+            <input type="text" id="required_skills" name="required_skills" class="form-control" placeholder="e.g. Python, PyTorch, OpenCV, Linear Algebra" required>
+            <div class="field-error" id="error-required_skills"></div>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group form-col-full">
+            <label for="description" class="form-label">Research Description <span class="required-star">*</span></label>
+            <textarea id="description" name="description" class="form-control" rows="3" placeholder="Provide a detailed overview of the research project, objectives, and student expectations..." required></textarea>
+            <div class="field-error" id="error-description"></div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submit-btn">
+            Create Opportunity
+          </button>
+          <button type="reset" class="btn btn-secondary" id="reset-btn">
+            Clear Form
+          </button>
+        </div>
+      </form>
+    </section>
+
     <!-- Research Opportunities List Section -->
     <section class="portal-section" id="list-section">
       <div class="section-header">

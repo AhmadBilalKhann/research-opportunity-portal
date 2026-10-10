@@ -258,6 +258,102 @@ main {
   margin: 0 auto;
 }
 
+/* ============================================================
+   FORM STYLES
+   ============================================================ */
+
+/* Two-column responsive grid layout for form fields */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.25rem;
+}
+
+/* Full-width column (used for title, skills, description) */
+.form-col-full {
+  grid-column: 1 / -1;
+}
+
+/* A single field group: label + input + error */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Field label */
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.35rem;
+}
+
+/* Red asterisk for required fields */
+.required-star {
+  color: #dc3545;
+  margin-left: 2px;
+}
+
+/* Input, select, textarea base styling */
+.form-control {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  color: #212529;
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  width: 100%;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #0d3b66;
+  box-shadow: 0 0 0 3px rgba(13, 59, 102, 0.12);
+}
+
+/* Invalid state highlight */
+.form-control.is-invalid {
+  border-color: #dc3545;
+}
+
+.form-control.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
+}
+
+/* Textarea specific */
+textarea.form-control {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+
+/* Select specific */
+select.form-control {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23868e96'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2rem;
+}
+
+/* Form action buttons row */
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Responsive: single column on narrow screens */
+@media (max-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Utility Classes */
 .hidden {
   display: none !important;
